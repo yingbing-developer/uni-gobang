@@ -1,0 +1,21 @@
+.btn {
+	padding: 10rpx;
+	display: inline-block;
+	background-image: radial-gradient(bottom, #1fd241 20%, #1fc83f 50% );
+	border-radius: 10rpx;
+	color: rgba(255,255,255,0.8);
+	position: relative;
+	box-shadow: 4rpx 4rpx 10rpx rgb(255,255,255,0.2) inset, -4rpx -4rpx 10rpx rgb(255,255,255,0.2) inset, 0 0 20rpx rgba(0,0,0,0.05);
+	font-size: 20rpx;
+}
+.btn::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 50%;
+	background-color: rgba(255,255,255,0.2);
+	border-top-left-radius: 10rpx;
+	border-top-right-radius: 10rpx;
+}

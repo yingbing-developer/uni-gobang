@@ -1,0 +1,76 @@
+.board {
+	margin: 30rpx auto;
+	width: 600rpx;
+	height: 600rpx;
+	display: flex;
+	flex-wrap: wrap;
+	position: relative;
+	box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.3);
+}
+.board::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border: 20rpx solid #F0AD4E;
+}
+.blocks {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	flex-wrap: wrap;
+	z-index: 2;
+}
+.block {
+	width: calc(100% / 15);
+	height: calc(100% / 15);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.lattice {
+	position: relative;
+	background-color: #F0AD4E;
+}
+.lattice::before, .lattice::after {
+	content: '';
+	position: absolute;
+	background-color: #333333;
+}
+.lattice::before {
+	width: 2rpx;
+	height: 40rpx;
+	left: 50%;
+	top: 0;
+	transform: translateX(-50%);
+}
+.lattice::after {
+	height: 2rpx;
+	width: 40rpx;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.lattice:nth-child(49) .circle,
+.lattice:nth-child(53) .circle,
+.lattice:nth-child(57) .circle,
+.lattice:nth-child(109) .circle,
+.lattice:nth-child(113) .circle,
+.lattice:nth-child(117) .circle,
+.lattice:nth-child(169) .circle,
+.lattice:nth-child(173) .circle,
+.lattice:nth-child(177) .circle {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 10rpx;
+	height: 10rpx;
+	border-radius: 10rpx;
+	background-color: #333333;
+}

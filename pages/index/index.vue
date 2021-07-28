@@ -41,6 +41,13 @@
 					<view class="btn">重玩</view>
 					<view class="btn">结束</view>
 					<view class="btn">悔棋</view>
+					<view class="btn">设置</view>
+				</view>
+				<view class="directions">
+					<view class="direction direction-top"></view>
+					<view class="direction direction-left"></view>
+					<view class="direction direction-right"></view>
+					<view class="direction direction-bottom"></view>
 				</view>
 			</view>
 		</view>
@@ -88,6 +95,7 @@
 	@import url("../../assets/css/body.css");
 	@import url("../../assets/css/board.css");
 	@import url("../../assets/css/button.css");
+	@import url("../../assets/css/control.css");
 	.container {
 		height: 100vh;
 		overflow: hidden;

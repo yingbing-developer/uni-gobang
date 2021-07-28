@@ -2,10 +2,9 @@
 	margin: 30rpx auto;
 	width: 600rpx;
 	height: 600rpx;
-	display: flex;
-	flex-wrap: wrap;
 	position: relative;
 	box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.3);
+	background-color: #F0AD4E;
 }
 .board::after {
 	content: '';
@@ -14,7 +13,7 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	border: 20rpx solid #F0AD4E;
+	border: calc(600rpx / 30) solid #F0AD4E;
 }
 .blocks {
 	position: absolute;
@@ -22,20 +21,19 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	display: flex;
-	flex-wrap: wrap;
 	z-index: 2;
 }
 .block {
-	width: calc(100% / 15);
-	height: calc(100% / 15);
+	width: calc(600rpx / 15);
+	height: calc(600rpx / 15);
+	box-sizing: border-box;
+	float: left;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 .lattice {
 	position: relative;
-	background-color: #F0AD4E;
 }
 .lattice::before, .lattice::after {
 	content: '';

@@ -35,11 +35,11 @@
 	.piece-item::before {
 		content: '';
 		position: absolute;
-		width: 10rpx;
-		height: 4rpx;
-		border-radius: 4rpx;
-		top: 6rpx;
-		left: 4rpx;
+		width: 33%;
+		height: 13%;
+		border-radius: 13%;
+		top: 24%;
+		left: 13%;
 		transform: rotateZ(-40deg);
 	}
 	.black-piece {

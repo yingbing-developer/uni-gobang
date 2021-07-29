@@ -1,27 +1,24 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { HISCORE } from '@/assets/js/config.js'
+import { PIECECOLOR } from '@/assets/js/config.js'
 Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
-		hiScore: uni.getStorageSync(HISCORE) || 0, //最高分数
+		pieceColor: uni.getStorageSync(PIECECOLOR) || 'white', //玩家执棋子颜色
 	},
 	getters: {
-		//获取当前登录信息
-		getHiScore (state) {
-			return state.hiScore
+		getPieceColor (state) {
+			return state.pieceColor
 		}
 	},
     mutations: {
-		//设置登录信息
-		setHiScore (state, score) {
-			state.hiScore = score;
-			uni.setStorageSync(HISCORE, score)
+		setPieceColor (state, color) {
+			state.pieceColor = color;
+			uni.setStorageSync(PIECECOLOR, color)
 		},
-		//清楚登录信息
 		clearHiscore (state) {
-			state.hiScore = '';
-			uni.removeStorageSync(HISCORE);
+			state.pieceColor = '';
+			uni.removeStorageSync(PIECECOLOR);
 		}
 	},
     actions: {}

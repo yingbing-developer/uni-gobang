@@ -32,6 +32,22 @@ export function indexOf (arr, query, value ) {
 	return -1;
 }
 
+/**
+ * 数组查找指定元素并返回个数
+ * @param {Array} arr 传入数组
+ * @param {String} value 条件元素值
+*/
+export function countOf (arr, value ) {
+	let len = arr.length;
+	let count = 0;
+	for ( let i = 0; i < len; i++ ) {
+		if ( arr[i] == value ) {
+			count++
+		}
+	}
+	return count;
+}
+
 // 判断arr是否为一个数组，返回一个bool值
 function isArray (arr) {
     return Object.prototype.toString.call(arr) === '[object Array]';

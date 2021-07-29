@@ -1,1 +1,1 @@
-export const HISCORE = 'UNI_TETRIS_SCORE';
+export const PIECECOLOR = 'UNI_GOBANG_PIECE_COLOR';

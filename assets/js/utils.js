@@ -48,6 +48,22 @@ export function countOf (arr, value ) {
 	return count;
 }
 
+/**
+ * 数组查找指定元素并返回全部下标
+ * @param {Array} arr 传入数组
+ * @param {String} value 条件元素值
+*/
+export function indexAllOf (arr, value) {
+	let len = arr.length;
+	let index = [];
+	for ( let i = 0; i < len; i++ ) {
+		if ( arr[i] == value ) {
+			index.push(i)
+		}
+	}
+	return index;
+}
+
 // 判断arr是否为一个数组，返回一个bool值
 function isArray (arr) {
     return Object.prototype.toString.call(arr) === '[object Array]';

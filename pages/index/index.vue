@@ -73,6 +73,12 @@
 				<view class="btn" @tap="setPiece('black')">我要执黑棋</view>
 			</view>
 		</popup>
+		<view class="tip" v-if="tipText">
+			<text class="tip-text">{{tipText}}</text>
+			<view>
+				<view class="btn" @tap="nextGame">再来一局</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -80,7 +86,7 @@
 	import GapBar from '@/components/gap-bar/gap-bar.nvue';
 	import Piece from '@/components/piece/piece.vue';
 	import Popup from '@/components/popup/popup.vue';
-	import { deepClone, countOf } from '@/assets/js/utils.js';
+	import { deepClone, countOf, indexAllOf } from '@/assets/js/utils.js';
 	import { mapGetters, mapMutations } from 'vuex';
 	const boards = 15 * 15;
 	const Integers = {
@@ -105,7 +111,7 @@
 				//棋盘数据
 				worldData: [],
 				//是否结束
-				ended: false,
+				ended: true,
 				//当前局玩家执棋子的颜色
 				nowPieceColor: '',
 				//光标索引
@@ -119,7 +125,9 @@
 				//玩家最后落棋的位置
 				lastPlayerDropIndex: 0,
 				//对手最后落棋的位置
-				lastEnemyDropIndex: 0
+				lastEnemyDropIndex: 0,
+				//提示
+				tipText: ''
 			}
 		},
 		created() {
@@ -128,7 +136,7 @@
 		computed: {
 			...mapGetters(['getPieceColor']),
 			playerPieceRound () {
-				return this.getPieceColor == 'white' ? 1 : 2;
+				return this.nowPieceColor == 'white' ? 1 : 2;
 			}
 		},
 		methods: {
@@ -145,10 +153,16 @@
 				this.cursorIndex = 112;
 				this.lastPlayerDropIndex = 0;
 				this.lastEnemyDropIndex = 0;
+				this.tipText = '';
 			},
+			//开始游戏
 			startGame () {
 				this.ended = false;
 				this.init();
+				//当玩家执白棋时，电脑先下棋
+				if ( this.playerPieceRound == 1 ) {
+					this.computedWeight();
+				}
 			},
 			//结束游戏
 			endGame () {
@@ -161,11 +175,11 @@
 			resetGame () {
 				this.failNums = 0;
 				this.winNums = 0;
-				this.init();
+				this.startGame();
 			},
 			//再来一局
 			nextGame () {
-				this.init();
+				this.startGame();
 			},
 			//悔棋
 			regretChess () {
@@ -181,6 +195,7 @@
 				}
 				this.$set(this.worldData, this.lastPlayerDropIndex, 0);
 				this.$set(this.worldData, this.lastEnemyDropIndex, 0);
+				this.cursorIndex = this.lastEnemyDropIndex;
 				this.lastPlayerDropIndex = 0;
 				this.lastEnemyDropIndex = 0;
 			},
@@ -206,7 +221,7 @@
 				}
 				this.cursorIndex = cursorIndex;
 			},
-			//玩家落子
+			//落子
 			dropChess (round) {
 				if ( this.nowRound != round ) {
 					return;
@@ -216,23 +231,12 @@
 					//判断是否有五子连珠
 					let isWin = this.isWin(round);
 					if ( isWin ) {
-						uni.showModal({
-							title: '提示',
-							content: round == this.playerPieceRound ? '你赢了' : '你输了',
-							confirmText: '再来一局',
-							success: (res) => {
-								if ( res.confirm ) {
-									if ( round == this.playerPieceRound ) {
-										this.winNums += 1;
-									} else {
-										this.failNums += 1;
-									}
-									this.nextGame();
-								} else {
-									this.endGame();
-								}
-							}
-						})
+						this.tipText = round == this.playerPieceRound ? '你赢了' : '你输了';
+						if ( round == this.playerPieceRound ) {
+							this.winNums += 1;
+						} else {
+							this.failNums += 1;
+						}
 						return;
 					}
 					//判断棋盘有没有放满棋子
@@ -240,18 +244,7 @@
 						return item > 0
 					})
 					if ( isFull ) {
-						uni.showModal({
-							title: '提示',
-							content: '平局',
-							confirmText: '再来一局',
-							success: (res) => {
-								if ( res.confirm ) {
-									this.nextGame();
-								} else {
-									this.endGame();
-								}
-							}
-						})
+						this.tipText = '平局';
 						return;
 					}
 					
@@ -275,110 +268,15 @@
 			},
 			//判断当前是否有棋子五连珠
 			isWin (round) {
-				let cursotIndex = this.cursorIndex;
-				//计算出落子位置处于哪一行
-				let line = 0;
-				let count = 0;
-				for ( let i = 0; i < 15; i++ ) {
-					if ( cursotIndex >= i * 15 && cursotIndex < (i + 1) * 15 ) {
-						line = i
-					}
-				}
-				//横线赢法
-				for ( let i = 0; i < 5; i++ ) {
-					let index = cursotIndex - i;
-					if ( index >= line * 15 && this.worldData[index] == round ) {
-						count += 1;
-					} else {
-						break;
-					}
-				}
-				for ( let i = 0; i < 5; i++ ) {
-					let index = cursotIndex + i;
-					if ( index < (line + 1) * 15 && this.worldData[index] == round ) {
-						count += 1;
-					} else {
-						break;
-					}
-				}
-				if ( count - 1 == 5 ) {
+				let weights = this.getPosition(this.cursorIndex, round);
+				if ( weights == 3000 ) {
 					return true;
-				} else {
-					count = 0;
-				}
-				
-				//竖线赢法
-				for ( let i = 0; i < 5; i++ ) {
-					let index = cursotIndex - (i * 15);
-					if ( index >= 0 && this.worldData[index] == round ) {
-						count += 1;
-					} else {
-						break;
-					}
-				}
-				for ( let i = 0; i < 5; i++ ) {
-					let index = cursotIndex + (i * 15);
-					if ( index < boards && this.worldData[index] == round ) {
-						count += 1;
-					} else {
-						break;
-					}
-				}
-				if ( count - 1 == 5 ) {
-					return true;
-				} else {
-					count = 0;
-				}
-				
-				//正斜线赢法
-				for ( let i = 0; i < 5; i++ ) {
-					let index = cursotIndex - (i * 16);
-					if ( index >= 0 && this.worldData[index] == round ) {
-						count += 1;
-					} else {
-						break;
-					}
-				}
-				for ( let i = 0; i < 5; i++ ) {
-					let index = cursotIndex + (i * 16);
-					if ( index < boards && this.worldData[index] == round ) {
-						count += 1;
-					} else {
-						break;
-					}
-				}
-				if ( count - 1 == 5 ) {
-					return true;
-				} else {
-					count = 0;
-				}
-				
-				//反斜线赢法
-				for ( let i = 0; i < 5; i++ ) {
-					let index = cursotIndex - (i * 14);
-					if ( index >= 0 && this.worldData[index] == round ) {
-						count += 1;
-					} else {
-						break;
-					}
-				}
-				for ( let i = 0; i < 5; i++ ) {
-					let index = cursotIndex + (i * 14);
-					if ( index < boards && this.worldData[index] == round ) {
-						count += 1;
-					} else {
-						break;
-					}
-				}
-				if ( count - 1 == 5 ) {
-					return true;
-				} else {
-					count = 0;
 				}
 				return false
 			},
 			//计算当前点的结构
 			getPosition (position, round) {
+				//计算当前点处于哪一行
 				let line = 0;
 				for ( let i = 0; i < 15; i++ ) {
 					if ( position >= i * 15 && position < (i + 1) * 15 ) {
@@ -391,11 +289,13 @@
 				let start = [false,false,false,false];
 				//当前点连珠后方是否封闭 false 代表封闭, true 代表未封闭
 				let end = [false,false,false,false];
+				
+				//判断该点的横线，竖线，正斜线，反斜线上有多少连在一起的棋子，两边有无阻挡
 				for ( let i in count ) {
 					//横线
 					if ( i == 0 ) {
-						for ( let i = 0; i < 5; i++ ) {
-							let index = position + i;
+						for ( let j = 1; j < 5; j++ ) {
+							let index = position - j;
 							if ( index >= line * 15 && this.worldData[index] == round ) {
 								count[i]++;
 							} else {
@@ -408,9 +308,8 @@
 							}
 							
 						}
-						for ( let i = 0; i < 5; i++ ) {
-							//横线
-							let index = position + i;
+						for ( let j = 1; j < 5; j++ ) {
+							let index = position + j;
 							if ( index < (line + 1) * 15 && this.worldData[index] == round ) {
 								count[i]++;
 							} else {
@@ -422,15 +321,14 @@
 								break;
 							}
 						}
-					}
-					//竖线 正斜线 反斜线
-					if ( i > 0 ) {
-						for ( let i = 0; i < 5; i++ ) {
-							let index = i == 1 ? position - (i * 15) : index == 2 ? position - (i * 16) : position - (i * 14);
-							if ( index >= 0 && this.worldData[index] == round ) {
+					} else {
+						//竖线 正斜线 反斜线
+						for ( let j = 1; j < 5; j++ ) {
+							let index = i== 1 ? position - (j * 15) : i == 2 ? position - (j * 16) : position - (j * 14);
+							if ( index >= (line - j) * 15 && index < (line - j + 1) * 15 && index >= 0 && this.worldData[index] == round ) {
 								count[i]++;
 							} else {
-								if ( index >= 0 && this.worldData[index] == 0 ) {
+								if ( index >= (line - j) * 15 && index < (line - j + 1) * 15 && index >= 0 && this.worldData[index] == 0 ) {
 									start[i] = true
 								} else {
 									start[i] = false
@@ -438,12 +336,12 @@
 								break;
 							}
 						}
-						for ( let i = 0; i < 5; i++ ) {
-							let index = i == 1 ? position + (i * 15) : index == 2 ? position + (i * 16) : position + (i * 14);
-							if ( index < boards && this.worldData[index] == round ) {
+						for ( let j = 1; j < 5; j++ ) {
+							let index = i == 1 ? position + (j * 15) : i == 2 ? position + (j * 16) : position + (j * 14);
+							if ( index >= (line + j) * 15 && index < (line + j + 1) * 15 && index < boards && this.worldData[index] == round ) {
 								count[i]++;
 							} else {
-								if ( index < boards && this.worldData[index] == 0 ) {
+								if ( index >= (line + j) * 15 && index < (line + j + 1) * 15 && index < boards && this.worldData[index] == 0 ) {
 									end[i] = true
 								} else {
 									end[i] = false
@@ -454,31 +352,26 @@
 					}
 					count[i]++
 				}
+				
+				//根据横线，竖线，正斜线，反斜线上的情况计算该点的分数
 				let types = [];
 				for ( let i in count ) {
-					switch (count[i]) {
-						case 2:
-							if ( start[i] && end[i] ) types.push('DL');
-							break;
-						case 3:
-							if ( start[i] && end[i] ) {
-								types.push('TL');
-							} else if ( (start[i] && !end[i]) || (!start[i] && end[i]) ) {
-								types.push('TN')
-							}
-							break;
-						case 4:
-							if ( start[i] && end[i] ) {
-								types.push('FL');
-							} else if ( (start[i] && !end[i]) || (!start[i] && end[i]) ) {
-								types.push('FN')
-							}
-							break;
-						case 5:
-							types.push('Five');
-							break;
-						default:
-							break;
+					if ( count[i] == 2 ) {
+						if ( start[i] && end[i] ) types.push('DL');
+					} else if ( count[i] == 3 ) {
+						if ( start[i] && end[i] ) {
+							types.push('TL');
+						} else if ( (start[i] && !end[i]) || (!start[i] && end[i]) ) {
+							types.push('TN')
+						}
+					} else if ( count[i] == 4 ) {
+						if ( start[i] && end[i] ) {
+							types.push('FL');
+						} else if ( (start[i] && !end[i]) || (!start[i] && end[i]) ) {
+							types.push('FN')
+						}
+					} else if ( count[i] >= 5 ) {
+						types.push('Five');
 					}
 				}
 				if ( types.indexOf('Five') > -1 ) {//活五得分
@@ -509,28 +402,48 @@
 					return Integers['TN']
 				} else if ( types.indexOf('DL') > -1) {//活二得分
 					return Integers['DL']
-				} else {//其余状况均为零分
-					return 0;
+				} else {//其余状况均为1分
+					return 1;
 				}
 			},
 			//计算权重
 			computedWeight () {
 				let weights = [];
+				let round = this.playerPieceRound == 1 ? 2 : 1;
 				for ( let i = 0; i < boards; i++ ) {
 					if ( this.worldData[i] == 0 ) {
-						let round = this.playerPieceRound == 1 ? 2 : 1;
 						//计算电脑在这个位置上的权重
 						let weight1 = this.getPosition(i, round);
 						//计算玩家在这个位置上的权重
 						let weight2 = this.getPosition(i, this.playerPieceRound) - 1;
 						//谁的权重大存谁 玩家的权重要减1，比电脑的权重小点
 						weights.push(weight1 > weight2 ? weight1 : weight2);
+					} else {
+						//当此点已经有棋子时得分为零,表示不能下子
+						weights.push(0);
 					}
 				}
-				let index = weights.indexOf(3000);
-				if ( index > -1 ) {
-					
+				let index = -1;
+				for ( let i in Integers ) {
+					if ( indexAllOf(weights, Integers[i]).length > 0 ) {
+						index = indexAllOf(weights, Integers[i])[~~(Math.random() * indexAllOf(weights, Integers[i]).length)];
+						break;
+					}
+					if ( indexAllOf(weights, Integers[i] - 1).length > 0 ) {
+						index = indexAllOf(weights, Integers[i] - 1)[~~(Math.random() * indexAllOf(weights, Integers[i] - 1).length)];
+						break;
+					}
 				}
+				if ( index == -1 ) {
+					if ( this.worldData[112] != 0 ) {
+						let arr = indexAllOf(this.worldData, 0);
+						index = arr[~~(Math.random() * arr.length)];
+					} else {
+						index = 112;
+					}
+				}
+				this.cursorIndex = index;
+				this.dropChess(round);
 			}
 		},
 		onBackPress(event) {
@@ -559,6 +472,7 @@
 		height: 100vh;
 		overflow: hidden;
 		background-image: radial-gradient(#2ab28a, #118563);
+		position: relative;
 	}
 	.border {
 		position: absolute;
@@ -674,5 +588,24 @@
 	}
 	.setting .btn {
 		margin: 40rpx 20rpx;
+	}
+	.tip {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		border: 4rpx solid #DD524D;
+		background-color: rgba(255,255,255,0.6);
+		padding: 10rpx 20rpx;
+		text-align: center;
+		box-shadow: 0 0 20rpx rgba(0,0,0,0.6);
+		z-index: 10;
+	}
+	.tip .btn {
+		margin-top: 10rpx;
+	}
+	.tip-text {
+		font-size: 26rpx;
+		font-weight: bold;
 	}
 </style>

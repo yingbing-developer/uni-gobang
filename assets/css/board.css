@@ -42,15 +42,15 @@
 	background-color: #333333;
 }
 .lattice::before {
-	width: 2rpx;
-	height: 40rpx;
+	width: 1rpx;
+	height: 100%;
 	left: 50%;
 	top: 0;
 	transform: translateX(-50%);
 }
 .lattice::after {
-	height: 2rpx;
-	width: 40rpx;
+	height: 1rpx;
+	width: 100%;
 	left: 0;
 	top: 50%;
 	transform: translateY(-50%);

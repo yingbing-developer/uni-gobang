@@ -1,5 +1,5 @@
 <template>
-	<view class="container">
+	<view class="container" @touchmove="dropMove" @touchend="dropEnd">
 		<!-- #ifndef H5 -->
 		<gap-bar></gap-bar>
 		<!-- #endif -->
@@ -42,6 +42,7 @@
 						<view class="cursor" v-if="cursorIndex == index">
 							<view class="cursor-line cursor-top"></view>
 							<view class="cursor-line cursor-bottom"></view>
+							<piece class="cursor-piece" :type="nowPieceColor" v-if="(touchStart.x > 0 || touchStart.y > 0) && item <= 0"></piece>
 						</view>
 						<piece :type="item == 1 ? 'white' : 'black'" v-if="item > 0"></piece>
 					</view>
@@ -54,13 +55,14 @@
 					<view class="btn" @tap="regretChess">悔棋</view>
 					<view class="btn" @tap="$refs.setting.show()">设置</view>
 				</view>
-				<view class="directions">
+				<!-- <view class="directions">
 					<view class="direction direction-top" @tap="moveCursor(-15)"></view>
 					<view class="direction direction-left" @tap="moveCursor(-1)"></view>
 					<view class="direction direction-right" @tap="moveCursor(1)"></view>
 					<view class="direction direction-bottom" @tap="moveCursor(15)"></view>
 					<view class="confirm-btn" @tap="dropChess(playerPieceRound)"></view>
-				</view>
+				</view> -->
+				<view class="drop-btn" @touchstart="dropStart">{{btnText}}</view>
 			</view>
 		</view>
 		<popup ref="setting">
@@ -127,7 +129,11 @@
 				//对手最后落棋的位置
 				lastEnemyDropIndex: 0,
 				//提示
-				tipText: ''
+				tipText: '',
+				touchStart: {
+					x: 0,
+					y: 0
+				}
 			}
 		},
 		created() {
@@ -137,6 +143,9 @@
 			...mapGetters(['getPieceColor']),
 			playerPieceRound () {
 				return this.nowPieceColor == 'white' ? 1 : 2;
+			},
+			btnText () {
+				return this.touchStart.x == 0 && this.touchStart.y == 0 ? '按此下棋' :  '松开落子'
 			}
 		},
 		methods: {
@@ -444,6 +453,55 @@
 				}
 				this.cursorIndex = index;
 				this.dropChess(round);
+			},
+			dropStart (e) {
+				if ( this.nowRound != this.playerPieceRound ) {
+					return;
+				}
+				if ( e.touches.length > 1 ) {
+					return;
+				}
+				let touch = e.touches[0];
+				this.touchStart.x = touch.pageX;
+				this.touchStart.y = touch.pageY;
+			},
+			dropMove (e) {
+				if ( this.nowRound != this.playerPieceRound ) {
+					return;
+				}
+				if ( e.touches.length > 1 ) {
+					return;
+				}
+				if ( this.touchStart.x == 0 && this.touchStart.y == 0 ) {
+					return;
+				}
+				let touch = e.touches[0];
+				let x = touch.pageX - this.touchStart.x;
+				let y = touch.pageY - this.touchStart.y;
+				let value = 0;
+				if ( Math.abs(x) > Math.abs(y) ) {
+					value = Math.floor(Math.abs(x) / (uni.upx2px(600) / 12));
+					value = x < 0 ? (-value) : value;
+				} else {
+					value = Math.floor(Math.abs(y) / (uni.upx2px(600) / 12)) * 15;
+					value = y < 0 ? (-value) : value;
+				}
+				if ( Math.abs(value) > 0 ) {
+					this.touchStart.x = touch.pageX;
+					this.touchStart.y = touch.pageY;
+				}
+				this.moveCursor(value);
+			},
+			dropEnd () {
+				if ( this.nowRound != this.playerPieceRound ) {
+					return;
+				}
+				if ( this.touchStart.x == 0 && this.touchStart.y == 0 ) {
+					return;
+				}
+				this.touchStart.x = 0;
+				this.touchStart.y = 0;
+				this.dropChess(this.playerPieceRound);
 			}
 		},
 		onBackPress(event) {
@@ -607,5 +665,16 @@
 	.tip-text {
 		font-size: 26rpx;
 		font-weight: bold;
+	}
+	.drop-btn {
+		background-color: rgba(255,255,255,0.6);
+		color: white;
+		font-size: 24rpx;
+		text-align: center;
+		width: 400rpx;
+		margin: 100rpx auto 0 auto;
+		padding: 20rpx 0;
+		position: relative;
+		z-index: 1;
 	}
 </style>

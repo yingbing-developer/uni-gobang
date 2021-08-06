@@ -244,7 +244,18 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-uni-view",
-    { staticClass: _vm._$g(0, "sc"), attrs: { _i: 0 } },
+    {
+      staticClass: _vm._$g(0, "sc"),
+      attrs: { _i: 0 },
+      on: {
+        touchmove: function($event) {
+          return _vm.$handleViewEvent($event)
+        },
+        touchend: function($event) {
+          return _vm.$handleViewEvent($event)
+        }
+      }
+    },
     [
       _c("gap-bar", { attrs: { _i: 1 } }),
       _c(
@@ -430,13 +441,19 @@ var render = function() {
                                   _c("v-uni-view", {
                                     staticClass: _vm._$g("30-" + $31, "sc"),
                                     attrs: { _i: "30-" + $31 }
-                                  })
+                                  }),
+                                  _vm._$g("31-" + $31, "i")
+                                    ? _c("piece", {
+                                        staticClass: _vm._$g("31-" + $31, "sc"),
+                                        attrs: { _i: "31-" + $31 }
+                                      })
+                                    : _vm._e()
                                 ],
                                 1
                               )
                             : _vm._e(),
-                          _vm._$g("31-" + $31, "i")
-                            ? _c("piece", { attrs: { _i: "31-" + $31 } })
+                          _vm._$g("32-" + $31, "i")
+                            ? _c("piece", { attrs: { _i: "32-" + $31 } })
                             : _vm._e()
                         ],
                         1
@@ -449,25 +466,12 @@ var render = function() {
               ),
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(32, "sc"), attrs: { _i: 32 } },
+                { staticClass: _vm._$g(33, "sc"), attrs: { _i: 33 } },
                 [
                   _c(
                     "v-uni-view",
-                    { staticClass: _vm._$g(33, "sc"), attrs: { _i: 33 } },
+                    { staticClass: _vm._$g(34, "sc"), attrs: { _i: 34 } },
                     [
-                      _c(
-                        "v-uni-view",
-                        {
-                          staticClass: _vm._$g(34, "sc"),
-                          attrs: { _i: 34 },
-                          on: {
-                            click: function($event) {
-                              return _vm.$handleViewEvent($event)
-                            }
-                          }
-                        },
-                        [_vm._v("重玩")]
-                      ),
                       _c(
                         "v-uni-view",
                         {
@@ -479,7 +483,7 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("结束")]
+                        [_vm._v("重玩")]
                       ),
                       _c(
                         "v-uni-view",
@@ -492,13 +496,26 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("悔棋")]
+                        [_vm._v("结束")]
                       ),
                       _c(
                         "v-uni-view",
                         {
                           staticClass: _vm._$g(37, "sc"),
                           attrs: { _i: 37 },
+                          on: {
+                            click: function($event) {
+                              return _vm.$handleViewEvent($event)
+                            }
+                          }
+                        },
+                        [_vm._v("悔棋")]
+                      ),
+                      _c(
+                        "v-uni-view",
+                        {
+                          staticClass: _vm._$g(38, "sc"),
+                          attrs: { _i: 38 },
                           on: {
                             click: function($event) {
                               return _vm.$handleViewEvent($event)
@@ -512,55 +529,16 @@ var render = function() {
                   ),
                   _c(
                     "v-uni-view",
-                    { staticClass: _vm._$g(38, "sc"), attrs: { _i: 38 } },
-                    [
-                      _c("v-uni-view", {
-                        staticClass: _vm._$g(39, "sc"),
-                        attrs: { _i: 39 },
-                        on: {
-                          click: function($event) {
-                            return _vm.$handleViewEvent($event)
-                          }
+                    {
+                      staticClass: _vm._$g(39, "sc"),
+                      attrs: { _i: 39 },
+                      on: {
+                        touchstart: function($event) {
+                          return _vm.$handleViewEvent($event)
                         }
-                      }),
-                      _c("v-uni-view", {
-                        staticClass: _vm._$g(40, "sc"),
-                        attrs: { _i: 40 },
-                        on: {
-                          click: function($event) {
-                            return _vm.$handleViewEvent($event)
-                          }
-                        }
-                      }),
-                      _c("v-uni-view", {
-                        staticClass: _vm._$g(41, "sc"),
-                        attrs: { _i: 41 },
-                        on: {
-                          click: function($event) {
-                            return _vm.$handleViewEvent($event)
-                          }
-                        }
-                      }),
-                      _c("v-uni-view", {
-                        staticClass: _vm._$g(42, "sc"),
-                        attrs: { _i: 42 },
-                        on: {
-                          click: function($event) {
-                            return _vm.$handleViewEvent($event)
-                          }
-                        }
-                      }),
-                      _c("v-uni-view", {
-                        staticClass: _vm._$g(43, "sc"),
-                        attrs: { _i: 43 },
-                        on: {
-                          click: function($event) {
-                            return _vm.$handleViewEvent($event)
-                          }
-                        }
-                      })
-                    ],
-                    1
+                      }
+                    },
+                    [_vm._v(_vm._$g(39, "t0-0"))]
                   )
                 ],
                 1
@@ -570,26 +548,26 @@ var render = function() {
           ),
       _c(
         "popup",
-        { ref: "setting", attrs: { _i: 44 } },
+        { ref: "setting", attrs: { _i: 40 } },
         [
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(45, "sc"), attrs: { _i: 45 } },
+            { staticClass: _vm._$g(41, "sc"), attrs: { _i: 41 } },
             [
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(46, "sc"), attrs: { _i: 46 } },
+                { staticClass: _vm._$g(42, "sc"), attrs: { _i: 42 } },
                 [
-                  _c("piece", { attrs: { _i: 47 } }),
-                  _c("piece", { attrs: { _i: 48 } })
+                  _c("piece", { attrs: { _i: 43 } }),
+                  _c("piece", { attrs: { _i: 44 } })
                 ],
                 1
               ),
               _c(
                 "v-uni-view",
                 {
-                  staticClass: _vm._$g(49, "sc"),
-                  attrs: { _i: 49 },
+                  staticClass: _vm._$g(45, "sc"),
+                  attrs: { _i: 45 },
                   on: {
                     click: function($event) {
                       return _vm.$handleViewEvent($event)
@@ -601,8 +579,8 @@ var render = function() {
               _c(
                 "v-uni-view",
                 {
-                  staticClass: _vm._$g(50, "sc"),
-                  attrs: { _i: 50 },
+                  staticClass: _vm._$g(46, "sc"),
+                  attrs: { _i: 46 },
                   on: {
                     click: function($event) {
                       return _vm.$handleViewEvent($event)
@@ -617,25 +595,25 @@ var render = function() {
         ],
         1
       ),
-      _vm._$g(51, "i")
+      _vm._$g(47, "i")
         ? _c(
             "v-uni-view",
-            { staticClass: _vm._$g(51, "sc"), attrs: { _i: 51 } },
+            { staticClass: _vm._$g(47, "sc"), attrs: { _i: 47 } },
             [
               _c(
                 "v-uni-text",
-                { staticClass: _vm._$g(52, "sc"), attrs: { _i: 52 } },
-                [_vm._v(_vm._$g(52, "t0-0"))]
+                { staticClass: _vm._$g(48, "sc"), attrs: { _i: 48 } },
+                [_vm._v(_vm._$g(48, "t0-0"))]
               ),
               _c(
                 "v-uni-view",
-                { attrs: { _i: 53 } },
+                { attrs: { _i: 49 } },
                 [
                   _c(
                     "v-uni-view",
                     {
-                      staticClass: _vm._$g(54, "sc"),
-                      attrs: { _i: 54 },
+                      staticClass: _vm._$g(50, "sc"),
+                      attrs: { _i: 50 },
                       on: {
                         click: function($event) {
                           return _vm.$handleViewEvent($event)
@@ -1817,7 +1795,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../Tool/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 19);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "body[data-v-2be84a3c] {\r\n\r\n-webkit-touch-callout:none;/*系统默认菜单被禁用*/\r\n\r\n-webkit-user-select:none;/*webkit浏览器*//*早起浏览器*//*火狐浏览器*//*IE浏览器*/\r\n\r\nuser-select:none;/*用户是否能够选中文本*/\n}\n.board[data-v-2be84a3c] {\r\n\tmargin: 30rpx auto;\r\n\twidth: 600rpx;\r\n\theight: 600rpx;\r\n\tposition: relative;\r\n\tbox-shadow: 0 4rpx 10rpx rgba(0,0,0,0.3);\r\n\tbackground-color: #F0AD4E;\n}\n.board[data-v-2be84a3c]::after {\r\n\tcontent: '';\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n\tborder: calc(600rpx / 30) solid #F0AD4E;\n}\n.blocks[data-v-2be84a3c] {\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n\tz-index: 2;\n}\n.block[data-v-2be84a3c] {\r\n\twidth: calc(600rpx / 15);\r\n\theight: calc(600rpx / 15);\r\n\tbox-sizing: border-box;\r\n\tfloat: left;\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\r\n\t-webkit-box-pack: center;\r\n\t-webkit-justify-content: center;\r\n\t        justify-content: center;\r\n\tposition: relative;\n}\n.lattice[data-v-2be84a3c] {\r\n\tposition: relative;\n}\n.lattice[data-v-2be84a3c]::before, .lattice[data-v-2be84a3c]::after {\r\n\tcontent: '';\r\n\tposition: absolute;\r\n\tbackground-color: #333333;\n}\n.lattice[data-v-2be84a3c]::before {\r\n\twidth: 2rpx;\r\n\theight: 40rpx;\r\n\tleft: 50%;\r\n\ttop: 0;\r\n\t-webkit-transform: translateX(-50%);\r\n\t        transform: translateX(-50%);\n}\n.lattice[data-v-2be84a3c]::after {\r\n\theight: 2rpx;\r\n\twidth: 40rpx;\r\n\tleft: 0;\r\n\ttop: 50%;\r\n\t-webkit-transform: translateY(-50%);\r\n\t        transform: translateY(-50%);\n}\n.lattice:nth-child(49) .circle[data-v-2be84a3c],\r\n.lattice:nth-child(53) .circle[data-v-2be84a3c],\r\n.lattice:nth-child(57) .circle[data-v-2be84a3c],\r\n.lattice:nth-child(109) .circle[data-v-2be84a3c],\r\n.lattice:nth-child(113) .circle[data-v-2be84a3c],\r\n.lattice:nth-child(117) .circle[data-v-2be84a3c],\r\n.lattice:nth-child(169) .circle[data-v-2be84a3c],\r\n.lattice:nth-child(173) .circle[data-v-2be84a3c],\r\n.lattice:nth-child(177) .circle[data-v-2be84a3c] {\r\n\tposition: absolute;\r\n\ttop: 50%;\r\n\tleft: 50%;\r\n\t-webkit-transform: translate(-50%, -50%);\r\n\t        transform: translate(-50%, -50%);\r\n\twidth: 10rpx;\r\n\theight: 10rpx;\r\n\tborder-radius: 10rpx;\r\n\tbackground-color: #333333;\n}\n.cursor[data-v-2be84a3c] {\r\n\twidth: 35rpx;\r\n\theight: 35rpx;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 50%;\r\n\t-webkit-transform: translate(-50%, -50%);\r\n\t        transform: translate(-50%, -50%);\n}\n.cursor-line[data-v-2be84a3c] {\r\n\twidth: 100%;\r\n\theight: 50%;\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-pack: justify;\r\n\t-webkit-justify-content: space-between;\r\n\t        justify-content: space-between;\n}\n.cursor-line[data-v-2be84a3c]::before, .cursor-line[data-v-2be84a3c]::after {\r\n\tcontent: '';\r\n\twidth: 30%;\r\n\theight: 70%;\r\n\tborder-top: 3rpx solid #F1F1F1;\r\n\tbox-sizing: border-box;\n}\n.cursor-line[data-v-2be84a3c]::before {\r\n\tborder-left: 3rpx solid #F1F1F1;\n}\n.cursor-line[data-v-2be84a3c]::after {\r\n\tborder-right: 3rpx solid #F1F1F1;\n}\n.cursor-bottom[data-v-2be84a3c] {\r\n\t-webkit-transform: rotateX(180deg);\r\n\t        transform: rotateX(180deg);\n}\n.btn[data-v-2be84a3c] {\r\n\tpadding: 10rpx;\r\n\tdisplay: inline-block;\r\n\tbackground-image: -webkit-radial-gradient(bottom, #1fd241 20%, #1fc83f 50% );\r\n\tbackground-image: radial-gradient(bottom, #1fd241 20%, #1fc83f 50% );\r\n\tborder-radius: 10rpx;\r\n\tcolor: rgba(255,255,255,0.8);\r\n\tposition: relative;\r\n\tbox-shadow: 4rpx 4rpx 10rpx rgb(255,255,255,0.2) inset, -4rpx -4rpx 10rpx rgb(255,255,255,0.2) inset, 0 0 20rpx rgba(0,0,0,0.05);\r\n\tfont-size: 20rpx;\n}\n.btn[data-v-2be84a3c]::after {\r\n\tcontent: '';\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\tright: 0;\r\n\tbottom: 50%;\r\n\tbackground-color: rgba(255,255,255,0.2);\r\n\tborder-top-left-radius: 10rpx;\r\n\tborder-top-right-radius: 10rpx;\n}\n.directions[data-v-2be84a3c] {\r\n\tposition: relative;\r\n\twidth: 350rpx;\r\n\theight: 400rpx;\r\n\tmargin: 0 auto;\n}\n.direction[data-v-2be84a3c] {\r\n\twidth: 50rpx;\r\n\theight: 60rpx;\r\n\tbackground-color: rgba(255,255,255,0.6);\r\n\tposition: absolute;\n}\n.direction[data-v-2be84a3c]::before {\r\n\tcontent: '';\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\t-webkit-transform: translateX(-50%);\r\n\t        transform: translateX(-50%);\r\n\ttop: -50rpx;\r\n\twidth: 0;\r\n\theight: 0;\r\n\tborder-top: 0 solid transparent;\r\n\tborder-left: 45rpx solid transparent;\r\n\tborder-right: 45rpx solid transparent;\r\n\tborder-bottom: 50rpx solid rgba(255,255,255,0.6);\n}\n.direction-top[data-v-2be84a3c] {\r\n\tleft: 50%;\r\n\t-webkit-transform: translateX(-50%);\r\n\t        transform: translateX(-50%);\r\n\ttop: 60rpx;\n}\n.direction-left[data-v-2be84a3c] {\r\n\tleft: 0;\r\n\ttop: 50%;\r\n\t-webkit-transform: translateY(-50%) rotateZ(-90deg);\r\n\t        transform: translateY(-50%) rotateZ(-90deg);\n}\n.direction-right[data-v-2be84a3c] {\r\n\tright: 0;\r\n\ttop: 50%;\r\n\t-webkit-transform: translateY(-50%) rotateZ(90deg);\r\n\t        transform: translateY(-50%) rotateZ(90deg);\n}\n.direction-bottom[data-v-2be84a3c] {\r\n\tleft: 50%;\r\n\t-webkit-transform: translateX(-50%) rotateZ(180deg);\r\n\t        transform: translateX(-50%) rotateZ(180deg);\r\n\tbottom: 60rpx;\n}\n.confirm-btn[data-v-2be84a3c] {\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\t-webkit-transform: translate(-50%, -50%);\r\n\t        transform: translate(-50%, -50%);\r\n\ttop: 50%;\r\n\twidth: 100rpx;\r\n\theight: 100rpx;\r\n\tborder-radius: 100rpx;\r\n\tbackground-color: rgba(255,255,255,0.6);\r\n\ttext-align: center;\r\n\tline-height: 100rpx;\n}\n.container[data-v-2be84a3c] {\r\n\theight: 100vh;\r\n\toverflow: hidden;\r\n\tbackground-image: -webkit-radial-gradient(#2ab28a, #118563);\r\n\tbackground-image: radial-gradient(#2ab28a, #118563);\r\n\tposition: relative;\n}\n.border[data-v-2be84a3c] {\r\n\tposition: absolute;\r\n\ttop: 30rpx;\r\n\tleft: 30rpx;\r\n\tright: 30rpx;\r\n\tbottom: 30rpx;\r\n\tborder: 2rpx solid rgba(255,255,255,0.4);\n}\n.border-box[data-v-2be84a3c] {\r\n\tposition: absolute;\r\n\twidth: 100%;\r\n\tleft: 0;\r\n\theight: 30rpx;\n}\n.border-box[data-v-2be84a3c]::before, .border-box[data-v-2be84a3c]::after {\r\n\tcontent: '';\r\n\tposition: absolute;\r\n\twidth: 30rpx;\r\n\theight: 30rpx;\r\n\tborder: 2rpx solid rgba(255,255,255,0.4);\r\n\tbackground-color: #118563;\n}\n.border-box[data-v-2be84a3c]::before {\r\n\tleft: -15rpx;\r\n\ttop: 0\n}\n.border-box[data-v-2be84a3c]::after {\r\n\tright: -15rpx;\r\n\ttop: 0;\n}\n.border-top[data-v-2be84a3c] {\r\n\ttop: -15rpx;\n}\n.border-bottom[data-v-2be84a3c] {\r\n\tbottom: -15rpx;\n}\n.title[data-v-2be84a3c] {\r\n\ttext-align: center;\r\n\tmargin-top: 300rpx;\r\n\tfont-size: 90rpx;\r\n\tfont-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;\r\n\tcolor: #e68c0c;\r\n\tposition: relative;\n}\n.title-text[data-v-2be84a3c] {\r\n\tposition: relative;\r\n\tz-index: 3;\n}\n.title[data-v-2be84a3c]::before, .title[data-v-2be84a3c]::after {\r\n\tcontent: '初级五子棋';\r\n\twidth: 100%;\r\n\tposition: absolute;\r\n\ttop: calc(50% + 2rpx);\r\n\tleft: calc(50% + 2rpx);\r\n\t-webkit-transform: translate(-50%, -50%);\r\n\t        transform: translate(-50%, -50%);\n}\n.title[data-v-2be84a3c]::before {\r\n\tcolor: #9f6411;\n}\n.title[data-v-2be84a3c]::after {\r\n\tcolor: #5c3907;\r\n\t-webkit-filter: blur(3rpx);\r\n\t        filter: blur(3rpx);\n}\n.start[data-v-2be84a3c] {\r\n\tposition: absolute;\r\n\ttop: 50%;\r\n\tleft: 50%;\r\n\t-webkit-transform: translate(-50%, -50%);\r\n\t        transform: translate(-50%, -50%);\r\n\ttext-align: center;\n}\n.start .btn[data-v-2be84a3c] {\r\n\tmin-width: 120rpx;\r\n\tmargin: 20rpx 0;\n}\n.game-world[data-v-2be84a3c] {\r\n\tmargin-top: 50rpx;\n}\n.top[data-v-2be84a3c] {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-pack: center;\r\n\t-webkit-justify-content: center;\r\n\t        justify-content: center;\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\r\n\tmargin: 10rpx 0 0 0;\n}\n.round[data-v-2be84a3c] {\r\n\twidth: 30rpx;\r\n\tline-height: 10rpx;\r\n\ttext-align: center;\n}\n.round-text[data-v-2be84a3c] {\r\n\tcolor: #DD524D;\r\n\tfont-size: 25rpx;\n}\n.top-text[data-v-2be84a3c] {\r\n\tcolor: #F1F1F1;\r\n\tfont-size: 25rpx;\r\n\tmargin: 0 40rpx;\n}\n.btns[data-v-2be84a3c] {\r\n\ttext-align: center;\n}\n.btns .btn[data-v-2be84a3c] {\r\n\tmargin: 0 20rpx;\n}\n.setting[data-v-2be84a3c] {\r\n\ttext-align: center;\n}\n.setting-piece[data-v-2be84a3c] {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-pack: justify;\r\n\t-webkit-justify-content: space-between;\r\n\t        justify-content: space-between;\r\n\tmargin: 0 130rpx;\r\n\tmargin-top: 80rpx;\n}\n.setting .btn[data-v-2be84a3c] {\r\n\tmargin: 40rpx 20rpx;\n}\n.tip[data-v-2be84a3c] {\r\n\tposition: absolute;\r\n\ttop: 50%;\r\n\tleft: 50%;\r\n\t-webkit-transform: translate(-50%, -50%);\r\n\t        transform: translate(-50%, -50%);\r\n\tborder: 4rpx solid #DD524D;\r\n\tbackground-color: rgba(255,255,255,0.6);\r\n\tpadding: 10rpx 20rpx;\r\n\ttext-align: center;\r\n\tbox-shadow: 0 0 20rpx rgba(0,0,0,0.6);\r\n\tz-index: 10;\n}\n.tip .btn[data-v-2be84a3c] {\r\n\tmargin-top: 10rpx;\n}\n.tip-text[data-v-2be84a3c] {\r\n\tfont-size: 26rpx;\r\n\tfont-weight: bold;\n}\r\n", ""]);
+exports.push([module.i, "body[data-v-2be84a3c] {\r\n\r\n-webkit-touch-callout:none;/*系统默认菜单被禁用*/\r\n\r\n-webkit-user-select:none;/*webkit浏览器*//*早起浏览器*//*火狐浏览器*//*IE浏览器*/\r\n\r\nuser-select:none;/*用户是否能够选中文本*/\n}\n.board[data-v-2be84a3c] {\r\n\tmargin: 30rpx auto;\r\n\twidth: 600rpx;\r\n\theight: 600rpx;\r\n\tposition: relative;\r\n\tbox-shadow: 0 4rpx 10rpx rgba(0,0,0,0.3);\r\n\tbackground-color: #F0AD4E;\n}\n.board[data-v-2be84a3c]::after {\r\n\tcontent: '';\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n\tborder: calc(600rpx / 30) solid #F0AD4E;\n}\n.blocks[data-v-2be84a3c] {\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n\tz-index: 2;\n}\n.block[data-v-2be84a3c] {\r\n\twidth: calc(600rpx / 15);\r\n\theight: calc(600rpx / 15);\r\n\tbox-sizing: border-box;\r\n\tfloat: left;\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\r\n\t-webkit-box-pack: center;\r\n\t-webkit-justify-content: center;\r\n\t        justify-content: center;\r\n\tposition: relative;\n}\n.lattice[data-v-2be84a3c] {\r\n\tposition: relative;\n}\n.lattice[data-v-2be84a3c]::before, .lattice[data-v-2be84a3c]::after {\r\n\tcontent: '';\r\n\tposition: absolute;\r\n\tbackground-color: #333333;\n}\n.lattice[data-v-2be84a3c]::before {\r\n\twidth: 1rpx;\r\n\theight: 100%;\r\n\tleft: 50%;\r\n\ttop: 0;\r\n\t-webkit-transform: translateX(-50%);\r\n\t        transform: translateX(-50%);\n}\n.lattice[data-v-2be84a3c]::after {\r\n\theight: 1rpx;\r\n\twidth: 100%;\r\n\tleft: 0;\r\n\ttop: 50%;\r\n\t-webkit-transform: translateY(-50%);\r\n\t        transform: translateY(-50%);\n}\n.lattice:nth-child(49) .circle[data-v-2be84a3c],\r\n.lattice:nth-child(53) .circle[data-v-2be84a3c],\r\n.lattice:nth-child(57) .circle[data-v-2be84a3c],\r\n.lattice:nth-child(109) .circle[data-v-2be84a3c],\r\n.lattice:nth-child(113) .circle[data-v-2be84a3c],\r\n.lattice:nth-child(117) .circle[data-v-2be84a3c],\r\n.lattice:nth-child(169) .circle[data-v-2be84a3c],\r\n.lattice:nth-child(173) .circle[data-v-2be84a3c],\r\n.lattice:nth-child(177) .circle[data-v-2be84a3c] {\r\n\tposition: absolute;\r\n\ttop: 50%;\r\n\tleft: 50%;\r\n\t-webkit-transform: translate(-50%, -50%);\r\n\t        transform: translate(-50%, -50%);\r\n\twidth: 10rpx;\r\n\theight: 10rpx;\r\n\tborder-radius: 10rpx;\r\n\tbackground-color: #333333;\n}\n.cursor[data-v-2be84a3c] {\r\n\twidth: 35rpx;\r\n\theight: 35rpx;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 50%;\r\n\t-webkit-transform: translate(-50%, -50%);\r\n\t        transform: translate(-50%, -50%);\n}\n.cursor-line[data-v-2be84a3c] {\r\n\twidth: 100%;\r\n\theight: 50%;\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-pack: justify;\r\n\t-webkit-justify-content: space-between;\r\n\t        justify-content: space-between;\n}\n.cursor-line[data-v-2be84a3c]::before, .cursor-line[data-v-2be84a3c]::after {\r\n\tcontent: '';\r\n\twidth: 30%;\r\n\theight: 70%;\r\n\tborder-top: 3rpx solid #F1F1F1;\r\n\tbox-sizing: border-box;\n}\n.cursor-line[data-v-2be84a3c]::before {\r\n\tborder-left: 3rpx solid #F1F1F1;\n}\n.cursor-line[data-v-2be84a3c]::after {\r\n\tborder-right: 3rpx solid #F1F1F1;\n}\n.cursor-bottom[data-v-2be84a3c] {\r\n\t-webkit-transform: rotateX(180deg);\r\n\t        transform: rotateX(180deg);\n}\n.cursor-piece[data-v-2be84a3c] {\r\n\tposition: absolute;\r\n\ttop: 50%;\r\n\tleft: 50%;\r\n\t-webkit-transform: translate(-50%, -50%);\r\n\t        transform: translate(-50%, -50%);\r\n\topacity: 0.75;\n}\n.btn[data-v-2be84a3c] {\r\n\tpadding: 10rpx;\r\n\tdisplay: inline-block;\r\n\tbackground-image: -webkit-radial-gradient(bottom, #1fd241 20%, #1fc83f 50% );\r\n\tbackground-image: radial-gradient(bottom, #1fd241 20%, #1fc83f 50% );\r\n\tborder-radius: 10rpx;\r\n\tcolor: rgba(255,255,255,0.8);\r\n\tposition: relative;\r\n\tbox-shadow: 4rpx 4rpx 10rpx rgb(255,255,255,0.2) inset, -4rpx -4rpx 10rpx rgb(255,255,255,0.2) inset, 0 0 20rpx rgba(0,0,0,0.05);\r\n\tfont-size: 20rpx;\n}\n.btn[data-v-2be84a3c]::after {\r\n\tcontent: '';\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\tright: 0;\r\n\tbottom: 50%;\r\n\tbackground-color: rgba(255,255,255,0.2);\r\n\tborder-top-left-radius: 10rpx;\r\n\tborder-top-right-radius: 10rpx;\n}\n.directions[data-v-2be84a3c] {\r\n\tposition: relative;\r\n\twidth: 350rpx;\r\n\theight: 400rpx;\r\n\tmargin: 0 auto;\n}\n.direction[data-v-2be84a3c] {\r\n\twidth: 50rpx;\r\n\theight: 60rpx;\r\n\tbackground-color: rgba(255,255,255,0.6);\r\n\tposition: absolute;\n}\n.direction[data-v-2be84a3c]::before {\r\n\tcontent: '';\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\t-webkit-transform: translateX(-50%);\r\n\t        transform: translateX(-50%);\r\n\ttop: -50rpx;\r\n\twidth: 0;\r\n\theight: 0;\r\n\tborder-top: 0 solid transparent;\r\n\tborder-left: 45rpx solid transparent;\r\n\tborder-right: 45rpx solid transparent;\r\n\tborder-bottom: 50rpx solid rgba(255,255,255,0.6);\n}\n.direction-top[data-v-2be84a3c] {\r\n\tleft: 50%;\r\n\t-webkit-transform: translateX(-50%);\r\n\t        transform: translateX(-50%);\r\n\ttop: 60rpx;\n}\n.direction-left[data-v-2be84a3c] {\r\n\tleft: 0;\r\n\ttop: 50%;\r\n\t-webkit-transform: translateY(-50%) rotateZ(-90deg);\r\n\t        transform: translateY(-50%) rotateZ(-90deg);\n}\n.direction-right[data-v-2be84a3c] {\r\n\tright: 0;\r\n\ttop: 50%;\r\n\t-webkit-transform: translateY(-50%) rotateZ(90deg);\r\n\t        transform: translateY(-50%) rotateZ(90deg);\n}\n.direction-bottom[data-v-2be84a3c] {\r\n\tleft: 50%;\r\n\t-webkit-transform: translateX(-50%) rotateZ(180deg);\r\n\t        transform: translateX(-50%) rotateZ(180deg);\r\n\tbottom: 60rpx;\n}\n.confirm-btn[data-v-2be84a3c] {\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\t-webkit-transform: translate(-50%, -50%);\r\n\t        transform: translate(-50%, -50%);\r\n\ttop: 50%;\r\n\twidth: 100rpx;\r\n\theight: 100rpx;\r\n\tborder-radius: 100rpx;\r\n\tbackground-color: rgba(255,255,255,0.6);\r\n\ttext-align: center;\r\n\tline-height: 100rpx;\n}\n.container[data-v-2be84a3c] {\r\n\theight: 100vh;\r\n\toverflow: hidden;\r\n\tbackground-image: -webkit-radial-gradient(#2ab28a, #118563);\r\n\tbackground-image: radial-gradient(#2ab28a, #118563);\r\n\tposition: relative;\n}\n.border[data-v-2be84a3c] {\r\n\tposition: absolute;\r\n\ttop: 30rpx;\r\n\tleft: 30rpx;\r\n\tright: 30rpx;\r\n\tbottom: 30rpx;\r\n\tborder: 2rpx solid rgba(255,255,255,0.4);\n}\n.border-box[data-v-2be84a3c] {\r\n\tposition: absolute;\r\n\twidth: 100%;\r\n\tleft: 0;\r\n\theight: 30rpx;\n}\n.border-box[data-v-2be84a3c]::before, .border-box[data-v-2be84a3c]::after {\r\n\tcontent: '';\r\n\tposition: absolute;\r\n\twidth: 30rpx;\r\n\theight: 30rpx;\r\n\tborder: 2rpx solid rgba(255,255,255,0.4);\r\n\tbackground-color: #118563;\n}\n.border-box[data-v-2be84a3c]::before {\r\n\tleft: -15rpx;\r\n\ttop: 0\n}\n.border-box[data-v-2be84a3c]::after {\r\n\tright: -15rpx;\r\n\ttop: 0;\n}\n.border-top[data-v-2be84a3c] {\r\n\ttop: -15rpx;\n}\n.border-bottom[data-v-2be84a3c] {\r\n\tbottom: -15rpx;\n}\n.title[data-v-2be84a3c] {\r\n\ttext-align: center;\r\n\tmargin-top: 300rpx;\r\n\tfont-size: 90rpx;\r\n\tfont-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;\r\n\tcolor: #e68c0c;\r\n\tposition: relative;\n}\n.title-text[data-v-2be84a3c] {\r\n\tposition: relative;\r\n\tz-index: 3;\n}\n.title[data-v-2be84a3c]::before, .title[data-v-2be84a3c]::after {\r\n\tcontent: '初级五子棋';\r\n\twidth: 100%;\r\n\tposition: absolute;\r\n\ttop: calc(50% + 2rpx);\r\n\tleft: calc(50% + 2rpx);\r\n\t-webkit-transform: translate(-50%, -50%);\r\n\t        transform: translate(-50%, -50%);\n}\n.title[data-v-2be84a3c]::before {\r\n\tcolor: #9f6411;\n}\n.title[data-v-2be84a3c]::after {\r\n\tcolor: #5c3907;\r\n\t-webkit-filter: blur(3rpx);\r\n\t        filter: blur(3rpx);\n}\n.start[data-v-2be84a3c] {\r\n\tposition: absolute;\r\n\ttop: 50%;\r\n\tleft: 50%;\r\n\t-webkit-transform: translate(-50%, -50%);\r\n\t        transform: translate(-50%, -50%);\r\n\ttext-align: center;\n}\n.start .btn[data-v-2be84a3c] {\r\n\tmin-width: 120rpx;\r\n\tmargin: 20rpx 0;\n}\n.game-world[data-v-2be84a3c] {\r\n\tmargin-top: 50rpx;\n}\n.top[data-v-2be84a3c] {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-pack: center;\r\n\t-webkit-justify-content: center;\r\n\t        justify-content: center;\r\n\t-webkit-box-align: center;\r\n\t-webkit-align-items: center;\r\n\t        align-items: center;\r\n\tmargin: 10rpx 0 0 0;\n}\n.round[data-v-2be84a3c] {\r\n\twidth: 30rpx;\r\n\tline-height: 10rpx;\r\n\ttext-align: center;\n}\n.round-text[data-v-2be84a3c] {\r\n\tcolor: #DD524D;\r\n\tfont-size: 25rpx;\n}\n.top-text[data-v-2be84a3c] {\r\n\tcolor: #F1F1F1;\r\n\tfont-size: 25rpx;\r\n\tmargin: 0 40rpx;\n}\n.btns[data-v-2be84a3c] {\r\n\ttext-align: center;\n}\n.btns .btn[data-v-2be84a3c] {\r\n\tmargin: 0 20rpx;\n}\n.setting[data-v-2be84a3c] {\r\n\ttext-align: center;\n}\n.setting-piece[data-v-2be84a3c] {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -webkit-flex;\r\n\tdisplay: flex;\r\n\t-webkit-box-pack: justify;\r\n\t-webkit-justify-content: space-between;\r\n\t        justify-content: space-between;\r\n\tmargin: 0 130rpx;\r\n\tmargin-top: 80rpx;\n}\n.setting .btn[data-v-2be84a3c] {\r\n\tmargin: 40rpx 20rpx;\n}\n.tip[data-v-2be84a3c] {\r\n\tposition: absolute;\r\n\ttop: 50%;\r\n\tleft: 50%;\r\n\t-webkit-transform: translate(-50%, -50%);\r\n\t        transform: translate(-50%, -50%);\r\n\tborder: 4rpx solid #DD524D;\r\n\tbackground-color: rgba(255,255,255,0.6);\r\n\tpadding: 10rpx 20rpx;\r\n\ttext-align: center;\r\n\tbox-shadow: 0 0 20rpx rgba(0,0,0,0.6);\r\n\tz-index: 10;\n}\n.tip .btn[data-v-2be84a3c] {\r\n\tmargin-top: 10rpx;\n}\n.tip-text[data-v-2be84a3c] {\r\n\tfont-size: 26rpx;\r\n\tfont-weight: bold;\n}\n.drop-btn[data-v-2be84a3c] {\r\n\tbackground-color: rgba(255,255,255,0.6);\r\n\tcolor: white;\r\n\tfont-size: 24rpx;\r\n\ttext-align: center;\r\n\twidth: 400rpx;\r\n\tmargin: 100rpx auto 0 auto;\r\n\tpadding: 20rpx 0;\r\n\tposition: relative;\r\n\tz-index: 1;\n}\r\n", ""]);
 // Exports
 module.exports = exports;
 
